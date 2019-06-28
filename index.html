@@ -5,38 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
-    <title>Lesson1</title>
+    <title>Vue Mastery</title>
 </head>
 <body>
     <div id="app">
         <div class="product">
             <div class="product-image">
-                <img v-bind:src="image" v-bind:alt="altData"/>
+                <img :src="image">
             </div>
     
             <div class="product-info">
-                <h1>{{ product }}</h1>
+                <h1>{{ title }}</h1>
                 <p v-if="inStock">In Stock</p>
-                <p v-else 
-                    :class="{ outOfStock: !inStock }">
+                <p v-else :class="{ outOfStock: !inStock }">
                     Out of Stock
                 </p>
+                <p>{{ sale }}</p>
                 <ul>
                     <li v-for="detail in details"> {{ detail }} </li>
                 </ul>
                 <div class="color-box"
-                v-for="variant in variants"
+                v-for="(variant, index) in variants"
                 :key="variant.variantId"
                 :style="{ backgroundColor: variant.variantColor }"
-                 @mouseover="updateProduct(variant.variantImage)"
+                 @mouseover="updateProduct(index)"
                 >
                 </div>
                 <ul>
                     <li v-for="size in sizes"> {{ size }} </li>
                 </ul>
-                <div class="cart">
-                    <p>Cart({{ cart }})</p>
-                </div>
+               
                 <button @click="addToCart"
                         :disabled="!inStock"
                         :class="{ disabledButton: !inStock }"
@@ -48,6 +46,10 @@
                         :class="{ disabledButton: !cart }"
                 >Remove from cart
                 </button>
+
+                <div class="cart">
+                    <p>Cart({{ cart }})</p>
+                </div>
             </div>
 
 
